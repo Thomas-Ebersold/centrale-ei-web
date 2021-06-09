@@ -1,7 +1,12 @@
 <template>
-  <img :src="'https://image.tmdb.org/t/p/w200/' + movie.poster_path" />
-  <p>{{ movie.title }}</p>
-  <p>{{ movie.release_date }}</p>
+  <div>
+    <h2>{{ movie.title }}</h2>
+    <img
+      :src="'https://image.tmdb.org/t/p/w200' + movie.poster_path"
+      :alt="movie.title"
+    />
+    <p>{{ movie.release_date }}</p>
+  </div>
 </template>
 
 <script>
@@ -13,13 +18,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 img {
-  border: 2px solid black;
-  -moz-border-radius: 7px;
-  -webkit-border-radius: 7px;
-  border-radius: 7px;
-  background: #000000;
-  display: inline-block;
+  height: 750 px;
+}
+
+div {
+  width: 250px;
 }
 </style>

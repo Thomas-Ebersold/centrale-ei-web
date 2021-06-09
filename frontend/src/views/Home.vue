@@ -1,114 +1,41 @@
 <template>
-  <div class="home">
-    <h1>Your movies</h1>
-    <img alt="Vue logo" src="../assets/logo.png" />
-
-    <div id="v-model-basic" class="demo">
-      <label for="name"></label>
-      <input v-model="movieName" placeholder="edit me" />
-      <p>Name of your movie: {{ movieName }}</p>
-    </div>
-
-    <div v-for="movie in movies" v-bind:key="movie.id">
-      <Movie :movie="movie" />
-    </div>
-
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br />
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank">vue-cli documentation</a>.
-    </p>
-
-    <h3>Installed CLI Plugins</h3>
+  <div id="base">
+    <h1>Liste film</h1>
+    <input type="text" v-model="movieName" placeholder="film" />
+    <p>film : {{ movieName }}</p>
     <ul>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-router"
-          target="_blank"
-          >router</a
-        >
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint"
-          target="_blank"
-          >eslint</a
-        >
-      </li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li>
-        <a href="https://vuejs.org" target="_blank">Core Docs</a>
-      </li>
-      <li>
-        <a href="https://forum.vuejs.org" target="_blank">Forum</a>
-      </li>
-      <li>
-        <a href="https://chat.vuejs.org" target="_blank">Community Chat</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/vuejs" target="_blank">Twitter</a>
-      </li>
-      <li>
-        <a href="https://news.vuejs.org" target="_blank">News</a>
-      </li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li>
-        <a href="https://router.vuejs.org" target="_blank">vue-router</a>
-      </li>
-      <li>
-        <a href="https://vuex.vuejs.org" target="_blank">vuex</a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/vue-devtools#vue-devtools"
-          target="_blank"
-          >vue-devtools</a
-        >
-      </li>
-      <li>
-        <a href="https://vue-loader.vuejs.org" target="_blank">vue-loader</a>
-      </li>
-      <li>
-        <a href="https://github.com/vuejs/awesome-vue" target="_blank"
-          >awesome-vue</a
-        >
+      <li v-for="(movie, index) in movies" :key="movie.id" id="liste">
+        {{ index + 1 }}
+        <Movie :movie="movie" />
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-import Movie from "@/components/Movie.vue";
 import axios from "axios";
+import Movie from "@/components/Movie.vue";
 
 export default {
   name: "Home",
   components: {
     Movie,
   },
-
   data() {
     return {
       movieName: "",
       movies: [],
     };
   },
-
   methods: {
     fetchMovies: function () {
       axios
         .get(
-          `https://api.themoviedb.org/3/movie/popular?api_key=522d421671cf75c2cba341597d86403a&language=en-US&page=1`
+          `https://api.themoviedb.org/3/movie/popular?api_key=a0a7e40dc8162ed7e37aa2fc97db5654&language=en-US&page=1`
         )
         .then((response) => {
-          // Do something if call succeeded
           this.movies = response.data.results;
-          console.log(this.movies);
-          console.log(response);
+          console.log(response.data.results[0].title);
         })
         .catch((error) => {
           // Do something if call failed
@@ -125,6 +52,10 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .home {
+  text-align: center;
+}
+
+#base {
   text-align: center;
 }
 

@@ -1,12 +1,24 @@
 <template>
   <div class="home">
+    <h1>Your movies</h1>
     <img alt="Vue logo" src="../assets/logo.png" />
-    <h1>Welcome to Your Vue.js App</h1>
+
+    <div id="v-model-basic" class="demo">
+      <label for="name"></label>
+      <input v-model="movieName" placeholder="edit me" />
+      <p>Name of your movie: {{ movieName }}</p>
+    </div>
+
+    <div v-for="movie in movies" v-bind:key="movie.id">
+      <Movie :movie="movie" />
+    </div>
+
     <p>
       For a guide and recipes on how to configure / customize this project,<br />
       check out the
       <a href="https://cli.vuejs.org" target="_blank">vue-cli documentation</a>.
     </p>
+
     <h3>Installed CLI Plugins</h3>
     <ul>
       <li>
@@ -70,8 +82,43 @@
 </template>
 
 <script>
+import Movie from "@/components/Movie.vue";
+import axios from "axios";
+
 export default {
   name: "Home",
+  components: {
+    Movie,
+  },
+
+  data() {
+    return {
+      movieName: "",
+      movies: [],
+    };
+  },
+
+  methods: {
+    fetchMovies: function () {
+      axios
+        .get(
+          `https://api.themoviedb.org/3/movie/popular?api_key=522d421671cf75c2cba341597d86403a&language=en-US&page=1`
+        )
+        .then((response) => {
+          // Do something if call succeeded
+          this.movies = response.data.results;
+          console.log(this.movies);
+          console.log(response);
+        })
+        .catch((error) => {
+          // Do something if call failed
+          console.log(error);
+        });
+    },
+  },
+  created: function () {
+    this.fetchMovies();
+  },
 };
 </script>
 

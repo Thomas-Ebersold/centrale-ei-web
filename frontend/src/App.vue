@@ -3,7 +3,7 @@
     <router-link class="nav-link" to="/">Home</router-link> |
     <router-link class="nav-link" to="/counter">Counter</router-link> |
     <router-link class="nav-link" to="/users">Users</router-link> |
-    <router-link class="nav-link" to="/about">About</router-link>
+    <router-link class="nav-link" to="/waitingline">WaitingLine</router-link>
   </div>
   <router-view />
 </template>

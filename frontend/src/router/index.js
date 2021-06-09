@@ -2,7 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import Counter from "../views/Counter.vue";
 import Users from "../views/Users.vue";
-import About from "../views/About.vue";
+import WaitingLine from "../views/WaitingLine.vue";
+import Movie_Description from "../views/Movie_Description.vue";
 
 const routes = [
   {
@@ -21,9 +22,14 @@ const routes = [
     component: Users,
   },
   {
-    path: "/about",
-    name: "About",
-    component: About,
+    path: "/waitingline",
+    name: "WaitingLine",
+    component: WaitingLine,
+  },
+  {
+    path: "/movie/:id",
+    name: "movie_description",
+    component: Movie_Description,
   },
 ];
 

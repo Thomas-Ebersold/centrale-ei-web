@@ -1,11 +1,15 @@
 <template>
-  <div>
-    <h2>{{ movie.title }}</h2>
-    <img
-      :src="'https://image.tmdb.org/t/p/w200' + movie.poster_path"
-      :alt="movie.title"
-    />
-    <p>{{ movie.release_date }}</p>
+  <div class="zoom">
+    <div class="image">
+      <p>{{ movie.title }}</p>
+      <p>{{ movie.release_date }}</p>
+      <a :href="'/movie/' + movie.id">
+        <img
+          :src="'https://image.tmdb.org/t/p/w200' + movie.poster_path"
+          title="Movie"
+        />
+      </a>
+    </div>
   </div>
 </template>
 
@@ -19,11 +23,41 @@ export default {
 </script>
 
 <style scoped>
-img {
-  height: 750 px;
+div {
+  width: 200px;
 }
 
-div {
-  width: 250px;
+img {
+  border: 2px solid black;
+  -moz-border-radius: 7px;
+  -webkit-border-radius: 7px;
+  border-radius: 7px;
+  background: #000000;
+  display: inline-block;
+}
+
+.zoom {
+  width: 320px;
+  height: 240px;
+}
+.image {
+  width: 100%;
+  height: 100%;
+}
+.image img {
+  /* La transition s'applique à la fois sur la largeur et la hauteur, avec une durée d'une seconde. */
+  -webkit-transition: all 0.5s ease; /* Safari et Chrome */
+  -moz-transition: all 0.5s ease; /* Firefox */
+  -ms-transition: all 0.5s ease; /* Internet Explorer 9 */
+  -o-transition: all 0.5s ease; /* Opera */
+  transition: all 0.5s ease;
+}
+.image:hover img {
+  /* L'image est grossie de 25% */
+  -webkit-transform: scale(1.25); /* Safari et Chrome */
+  -moz-transform: scale(1.25); /* Firefox */
+  -ms-transform: scale(1.25); /* Internet Explorer 9 */
+  -o-transform: scale(1.25); /* Opera */
+  transform: scale(1.25);
 }
 </style>

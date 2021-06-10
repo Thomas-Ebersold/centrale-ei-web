@@ -4,9 +4,8 @@
     <form ref="addUserForm">
       <input
         class="add-user-input"
-        v-model="user.email"
-        type="email"
-        placeholder="Email"
+        v-model="user.nickname"
+        placeholder="nickname"
         required
       />
       <input
@@ -33,7 +32,7 @@ export default {
   data: function () {
     return {
       user: {
-        email: "",
+        nickname: "",
         firstName: "",
         lastName: "",
       },
@@ -46,13 +45,16 @@ export default {
         this.$refs.addUserForm.reportValidity();
         return;
       }
-
+      console.log("on");
+      this.$root.nickname = this.user.nickname;
+      localStorage.setItem("nickname", this.user.nickname);
       axios
         .post(`${process.env.VUE_APP_BACKEND_BASE_URL}/users/new`, this.user)
         .then(() => {
+          console.log("ze");
           this.$emit("userAdded");
           this.user = {
-            email: "",
+            nickname: "",
             firstName: "",
             lastName: "",
           };

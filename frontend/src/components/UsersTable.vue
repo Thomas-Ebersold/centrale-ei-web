@@ -7,7 +7,7 @@
     </thead>
     <tbody>
       <tr v-for="user in users" :key="user.email">
-        <td>{{ user.email }}</td>
+        <td>{{ user.nickname }}</td>
         <td>{{ user.firstName }}</td>
         <td>{{ user.lastName }}</td>
         <td>

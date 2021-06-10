@@ -3,12 +3,12 @@
     <div class="image">
       <p>{{ movie.title }}</p>
       <p>{{ movie.release_date }}</p>
-      <a :href="'/movie/' + movie.id">
+      <router-link :to="'/movie/' + movie.id">
         <img
           :src="'https://image.tmdb.org/t/p/w200' + movie.poster_path"
           title="Movie"
         />
-      </a>
+      </router-link>
     </div>
   </div>
 </template>

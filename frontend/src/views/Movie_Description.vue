@@ -1,13 +1,20 @@
 <template>
-  <div>Title: {{ movie[0].original_title }}</div>
-  <img :src="'https://image.tmdb.org/t/p/w500' + movie[0].poster_path" />
+  <div v-if="movie[0]">
+    <div>Title: {{ movie[0].original_title }}</div>
+    <img :src="'https://image.tmdb.org/t/p/w500' + movie[0].poster_path" />
+    <Bouton @liked="liked()" :liker="attente" />
+  </div>
 </template>
 
 <script>
 import axios from "axios";
+import Bouton from "@/components/Bouton.vue";
 
 export default {
   name: "Movie_Description",
+  components: {
+    Bouton,
+  },
 
   data() {
     return {
@@ -15,12 +22,13 @@ export default {
       movie: [],
       external_id: "",
       request: "",
+      attente: false,
     };
   },
 
   methods: {
     fetchMovies: function () {
-      axios
+      return axios
         .get(this.request)
         .then((response) => {
           this.movie = response.data.movie_results;
@@ -47,10 +55,43 @@ export default {
           console.log(this.request);
         });
     },
+    saveMovie: function () {
+      axios({
+        method: "post",
+        url: "http://localhost:3000/movies/new",
+        data: {
+          name: this.movie[0].original_title,
+        },
+      })
+        .then(function () {
+          console.log("ok");
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
+    liked: function () {
+      this.attente = !this.attente;
+
+      console.log("like");
+      console.log(this.$root.nickname);
+
+      axios({
+        method: "post",
+        url: "http://localhost:3000/waitingLines/new",
+        data: {
+          nickname: this.$root.nickname,
+          movieName: this.movie[0].original_title,
+          waiting: this.attente,
+        },
+      });
+    },
   },
   created: function () {
     this.fetchId().then(() => {
-      this.fetchMovies();
+      this.fetchMovies().then(() => {
+        this.saveMovie();
+      });
     });
   },
 };

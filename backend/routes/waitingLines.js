@@ -24,6 +24,7 @@ router.post("/new", function (req, res) {
         id_composite: movie[0]._id + userid,
         waiting: true,
         ranking: 0,
+        rate: 0,
       });
       newWaiting
         .save()

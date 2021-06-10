@@ -7,6 +7,7 @@ const WaitingLineSchema = new Schema({
   id_composite: { type: String, required: true, unique: true },
   waiting: { type: Boolean },
   ranking: { type: Number },
+  rate: { type: Number },
 });
 
 const WaitingLineModel = mongoose.model(

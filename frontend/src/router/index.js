@@ -4,6 +4,7 @@ import Counter from "../views/Counter.vue";
 import Users from "../views/Users.vue";
 import WaitingLine from "../views/WaitingLine.vue";
 import Movie_Description from "../views/Movie_Description.vue";
+import Noter from "../views/Noter.vue";
 
 const routes = [
   {
@@ -12,9 +13,9 @@ const routes = [
     component: Home,
   },
   {
-    path: "/counter",
-    name: "Counter",
-    component: Counter,
+    path: "/noter",
+    name: "Noter",
+    component: Noter,
   },
   {
     path: "/users",

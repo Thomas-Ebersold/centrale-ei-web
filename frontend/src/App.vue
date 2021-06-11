@@ -2,7 +2,7 @@
   <h1>{{ nickname }}</h1>
   <div class="nav">
     <router-link class="nav-link" to="/">Home</router-link> |
-    <router-link class="nav-link" to="/counter">Counter</router-link> |
+    <router-link class="nav-link" to="/noter">Noter</router-link> |
     <router-link class="nav-link" to="/users">Users</router-link> |
     <router-link class="nav-link" to="/waitingline">WaitingLine</router-link>
   </div>

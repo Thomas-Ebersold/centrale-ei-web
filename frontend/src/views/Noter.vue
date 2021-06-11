@@ -3,7 +3,6 @@
     <h1>Liste film</h1>
     <input type="text" v-model="movieName" placeholder="film" />
     <p>film : {{ movieName }}</p>
-    <button @click="search()">Search</button>
     <ul>
       <li v-for="(movie, index) in movies" :key="movie.id" id="liste">
         {{ 20 * (page - 1) + index + 1 }}
@@ -19,10 +18,10 @@
 
 <script>
 import axios from "axios";
-import Movie from "@/components/Movie.vue";
+import Movie from "@/components/Moview.vue";
 
 export default {
-  name: "Home",
+  name: "Noter",
   components: {
     Movie,
   },
@@ -35,13 +34,16 @@ export default {
   },
   methods: {
     fetchMovies: function () {
-      axios
-        .get(
-          `https://api.themoviedb.org/3/movie/popular?api_key=a0a7e40dc8162ed7e37aa2fc97db5654&language=en-US&page=${this.page}`
-        )
+      axios({
+        method: "post",
+        url: "http://localhost:3000/waitingLines/vue",
+        data: {
+          nickname: this.$root.nickname,
+        },
+      })
         .then((response) => {
-          this.movies = response.data.results;
-          console.log(response.data.results[0].title);
+          this.movies = response.data;
+          console.log(response.data);
         })
         .catch((error) => {
           // Do something if call failed
@@ -55,19 +57,6 @@ export default {
     prev: function () {
       this.page = this.page - 1;
       this.fetchMovies();
-    },
-    search: function () {
-      axios
-        .get(
-          `https://api.themoviedb.org/3/search/movie?api_key=57359ff087905e870d40ba4880a1dce0&language=en-US&query=${this.movieName}&page=1&include_adult=false`
-        )
-        .then((res) => {
-          console.log(res);
-          this.movies = res.data.results;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
     },
   },
   created: function () {

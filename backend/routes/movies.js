@@ -13,6 +13,8 @@ router.post("/new", function (req, res) {
   const newMovie = new MovieModel({
     name: req.body.name,
     date: req.body.date,
+    id: req.body.id,
+    path: req.body.path,
   });
   newMovie
     .save()

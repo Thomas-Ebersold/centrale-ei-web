@@ -1,19 +1,23 @@
 <template>
   <div v-if="movie[0]">
+    <p>note : {{ note }}</p>
     <div>Title: {{ movie[0].original_title }}</div>
     <img :src="'https://image.tmdb.org/t/p/w500' + movie[0].poster_path" />
     <Bouton @liked="liked()" :liker="attente" />
+    <Etoile @rate="rate" :score="note" />
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import Bouton from "@/components/Bouton.vue";
+import Etoile from "@/components/Etoile.vue";
 
 export default {
   name: "Movie_Description",
   components: {
     Bouton,
+    Etoile,
   },
 
   data() {
@@ -23,10 +27,30 @@ export default {
       external_id: "",
       request: "",
       attente: false,
+      note: 0,
     };
   },
 
   methods: {
+    liker: function () {
+      return axios({
+        method: "post",
+        url: "http://localhost:3000/waitingLines/movies",
+        data: {
+          nickname: this.$root.nickname,
+          movieName: this.movie[0].original_title,
+        },
+      }).then((res) => {
+        console.log(res.data);
+        if (res.length == 0) {
+          this.attente = false;
+          this.note = 0;
+        } else {
+          this.attente = res.data[0].waiting;
+          this.note = res.data[0].rate;
+        }
+      });
+    },
     fetchMovies: function () {
       return axios
         .get(this.request)
@@ -38,7 +62,19 @@ export default {
           console.log("error");
         });
     },
-
+    rate: function (k) {
+      this.note = k;
+      axios({
+        method: "post",
+        url: "http://localhost:3000/waitingLines/new",
+        data: {
+          nickname: this.$root.nickname,
+          movieName: this.movie[0].original_title,
+          waiting: this.attente,
+          rate: this.note,
+        },
+      });
+    },
     fetchId: function () {
       return axios
         .get(
@@ -56,11 +92,13 @@ export default {
         });
     },
     saveMovie: function () {
-      axios({
+      return axios({
         method: "post",
         url: "http://localhost:3000/movies/new",
         data: {
           name: this.movie[0].original_title,
+          id: this.$route.params.id,
+          path: this.movie[0].poster_path,
         },
       })
         .then(function () {
@@ -83,6 +121,7 @@ export default {
           nickname: this.$root.nickname,
           movieName: this.movie[0].original_title,
           waiting: this.attente,
+          rate: this.rate,
         },
       });
     },
@@ -90,7 +129,9 @@ export default {
   created: function () {
     this.fetchId().then(() => {
       this.fetchMovies().then(() => {
-        this.saveMovie();
+        this.saveMovie().then(() => {
+          this.liker();
+        });
       });
     });
   },

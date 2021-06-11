@@ -10,7 +10,7 @@ router.get("/", function (req, res) {
 
 router.post("/new", function (req, res) {
   const newUser = new UserModel({
-    email: req.body.email,
+    nickname: req.body.nickname,
     firstName: req.body.firstName,
     lastName: req.body.lastName,
   });
@@ -23,7 +23,7 @@ router.post("/new", function (req, res) {
     .catch(function (error) {
       if (error.code === 11000) {
         res.status(400).json({
-          message: `User with email "${newUser.email}" already exists`,
+          message: `User with email "${newUser.nickname}" already exists`,
         });
       } else {
         res.status(500).json({ message: "Error while creating the user" });

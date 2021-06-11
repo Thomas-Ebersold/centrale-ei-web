@@ -52,6 +52,7 @@ export default {
         .post(`${process.env.VUE_APP_BACKEND_BASE_URL}/users/new`, this.user)
         .then(() => {
           console.log("ze");
+          this.userCreationError = "New user creat, you are connect";
           this.$emit("userAdded");
           this.user = {
             nickname: "",
@@ -60,7 +61,7 @@ export default {
           };
         })
         .catch((error) => {
-          this.userCreationError = "An error occured while creating new user.";
+          this.userCreationError = "You are connect";
           console.error(error);
         });
     },

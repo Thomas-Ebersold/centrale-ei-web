@@ -1,7 +1,7 @@
 <template>
   <table>
     <thead>
-      <th>Email</th>
+      <th>Nickname</th>
       <th>First name</th>
       <th>Lirst name</th>
     </thead>

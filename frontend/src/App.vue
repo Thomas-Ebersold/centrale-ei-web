@@ -1,5 +1,6 @@
 <template>
-  <h1>{{ nickname }}</h1>
+  <h1 v-if="nickname" class="center">{{ nickname }}</h1>
+  <h1 v-else class="center">Not connected</h1>
   <div class="nav">
     <router-link class="nav-link" to="/">Home</router-link> |
     <router-link class="nav-link" to="/noter">Noter</router-link> |
@@ -23,7 +24,9 @@ export default {
   text-align: center;
   padding: 30px;
 }
-
+.center {
+  text-align: center;
+}
 .nav-link {
   font-weight: bold;
   color: #2c3e50;

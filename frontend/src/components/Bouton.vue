@@ -1,10 +1,10 @@
 <template>
   <div>
     <div v-if="liker">
-      <button @click="change()">Dans la liste d'attente</button>
+      <button @click="change()">✔ Ma liste</button>
     </div>
     <div v-else>
-      <button @click="change()">Ajouter à la liste d'attente</button>
+      <button @click="change()">+ Ma Liste</button>
     </div>
   </div>
 </template>

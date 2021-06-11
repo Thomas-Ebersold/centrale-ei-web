@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.get("/", function (req, res) {
   MovieModel.find({}).then(function (movies) {
-    console.log(movies[0]._id);
+    console.log("get movies reussi");
     res.json(movies);
   });
 });
@@ -19,10 +19,10 @@ router.post("/new", function (req, res) {
   newMovie
     .save()
     .then(function () {
-      res.json("ok");
+      res.json("post movie/new reussi");
     })
     .catch(function (error) {
-      res.json({ erreur: error });
+      res.json({ erreur: error, message: "post movie/new echec" });
     });
 });
 

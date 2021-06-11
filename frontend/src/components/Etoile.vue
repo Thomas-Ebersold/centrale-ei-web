@@ -6,7 +6,8 @@
     <button @click="etoile(4)" :class="{ active: score >= 4 }">✩</button>
     <button @click="etoile(5)" :class="{ active: score >= 5 }">✩</button>
   </div>
-  <p>{{ score }}</p>
+  <p v-if="score > 0">{{ score }}/5</p>
+  <p v-else>non noté</p>
 </template>
 
 <script>
@@ -14,11 +15,6 @@ export default {
   name: "Etoile",
   props: {
     score: Number,
-  },
-  data() {
-    return {
-      etoiler: 0,
-    };
   },
   methods: {
     etoile: function (k) {

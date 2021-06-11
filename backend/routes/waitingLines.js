@@ -17,6 +17,7 @@ router.get("/", function (req, res) {
 router.post("/", function (req, res) {
   UserModel.find({ nickname: req.body.nickname }).then(function (user) {
     WaitingLineModel.find({ id_user: user[0]._id, waiting: true })
+      .sort({ ranking: -1 })
       .populate("id_movie")
       .then(function (s) {
         res.json(s);
@@ -26,7 +27,8 @@ router.post("/", function (req, res) {
 
 router.post("/vue", function (req, res) {
   UserModel.find({ nickname: req.body.nickname }).then(function (user) {
-    WaitingLineModel.find({ id_user: user[0]._id, rate: { $gt: 1 } })
+    WaitingLineModel.find({ id_user: user[0]._id, rate: { $gt: 0 } })
+      .sort({ rate: -1 })
       .populate("id_movie")
       .then(function (s) {
         res.json(s);

@@ -1,7 +1,7 @@
 <template>
-  <h1>Users</h1>
+  <h1 class="centrer">Users</h1>
   <AddUser @userAdded="fetchUsers()" />
-  <UsersTable v-if="users.length" :users="users" @userDeleted="fetchUsers()" />
+  <!--<UsersTable v-if="users.length" :users="users" @userDeleted="fetchUsers()" />-->
   <div v-if="usersLoadingError">{{ $route.nickname }}</div>
 </template>
 
@@ -41,3 +41,9 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.centrer {
+  text-align: center;
+}
+</style>

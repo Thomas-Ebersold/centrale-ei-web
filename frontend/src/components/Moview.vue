@@ -1,7 +1,7 @@
 <template>
   <div class="zoom">
     <div class="image">
-      <p>{{ movie.id_movie.name }}</p>
+      <h2>{{ movie.id_movie.name }}</h2>
       <router-link :to="'/movie/' + movie.id_movie.id">
         <img
           :src="'https://image.tmdb.org/t/p/w200' + movie.id_movie.path"

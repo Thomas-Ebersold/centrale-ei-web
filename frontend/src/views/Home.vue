@@ -1,8 +1,7 @@
 <template>
   <div id="base">
-    <h1>Liste film</h1>
+    <h1>Film</h1>
     <input type="text" v-model="movieName" placeholder="film" />
-    <p>film : {{ movieName }}</p>
     <button @click="search()">Search</button>
     <ul>
       <li v-for="(movie, index) in movies" :key="movie.id" id="liste">
@@ -10,10 +9,10 @@
         <Movie :movie="movie" />
       </li>
     </ul>
-    <button @click="next()">Next</button>
     <div v-if="page != 1">
       <button @click="prev()">Prev</button>
     </div>
+    <button @click="next()">Next</button>
   </div>
 </template>
 
@@ -59,7 +58,7 @@ export default {
     search: function () {
       axios
         .get(
-          `https://api.themoviedb.org/3/search/movie?api_key=57359ff087905e870d40ba4880a1dce0&language=en-US&query=${this.movieName}&page=1&include_adult=false`
+          `https://api.themoviedb.org/3/search/movie?api_key=57359ff087905e870d40ba4880a1dce0&language=en-US&query=${this.movieName}&page=1&include_adult=true`
         )
         .then((res) => {
           console.log(res);

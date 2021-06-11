@@ -1,8 +1,10 @@
 <template>
-  <div v-if="movie[0]">
-    <p>note : {{ note }}</p>
-    <div>Title: {{ movie[0].original_title }}</div>
-    <img :src="'https://image.tmdb.org/t/p/w500' + movie[0].poster_path" />
+  <div v-if="movie[0]" class="center">
+    <h1>Title: {{ movie[0].original_title }}</h1>
+    <div class="enligne">
+      <img :src="'https://image.tmdb.org/t/p/w500' + movie[0].poster_path" />
+      <p class="moyen">{{ movie[0].overview }}</p>
+    </div>
     <Bouton @liked="liked()" :liker="attente" />
     <Etoile @rate="rate" :score="note" />
   </div>
@@ -121,7 +123,7 @@ export default {
           nickname: this.$root.nickname,
           movieName: this.movie[0].original_title,
           waiting: this.attente,
-          rate: this.rate,
+          rate: this.note,
         },
       });
     },
@@ -137,3 +139,18 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.enligne {
+  display: inline-block;
+}
+.center {
+  text-align: center;
+}
+.moyen {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: justify;
+}
+</style>

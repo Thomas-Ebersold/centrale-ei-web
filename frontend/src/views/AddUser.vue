@@ -1,25 +1,29 @@
 <template>
-  <div class="add-user-title">Add new user:</div>
-  <div class="add-user-form-container">
-    <form ref="addUserForm">
-      <input
-        class="add-user-input"
-        v-model="user.nickname"
-        placeholder="nickname"
-        required
-      />
-      <input
-        class="add-user-input"
-        v-model="user.firstName"
-        placeholder="First name"
-      />
-      <input
-        class="add-user-input"
-        v-model="user.lastName"
-        placeholder="Last name"
-      />
-    </form>
-    <button class="add-user-button" @click="addUser()">Add user</button>
+  <div class="base">
+    <div class="add-user-title">Add new user:</div>
+    <div class="add-user-form-container">
+      <div class="entrer">
+        <form ref="addUserForm">
+          <input
+            class="add-user-input"
+            v-model="user.nickname"
+            placeholder="nickname"
+            required
+          />
+          <input
+            class="add-user-input"
+            v-model="user.firstName"
+            placeholder="First name"
+          />
+          <input
+            class="add-user-input"
+            v-model="user.lastName"
+            placeholder="Last name"
+          />
+        </form>
+      </div>
+      <button class="add-user-button" @click="addUser()">Add user</button>
+    </div>
     <div v-if="userCreationError">{{ userCreationError }}</div>
   </div>
 </template>
@@ -73,12 +77,21 @@ export default {
   margin-bottom: 10px;
 }
 
+.base {
+  text-align: center;
+}
+
 .add-user-form-container {
-  display: flex;
-  margin-bottom: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+}
+.entrer {
+  margin-bottom: 10px;
 }
 
 .add-user-input {
+  text-align: center;
   margin-right: 10px;
   padding: 5px;
 }

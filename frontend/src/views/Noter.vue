@@ -1,18 +1,12 @@
 <template>
   <div id="base">
-    <h1>Liste film</h1>
-    <input type="text" v-model="movieName" placeholder="film" />
-    <p>film : {{ movieName }}</p>
+    <h1>Films Notés</h1>
     <ul>
       <li v-for="(movie, index) in movies" :key="movie.id" id="liste">
-        {{ 20 * (page - 1) + index + 1 }}
+        {{ index + 1 }}
         <Movie :movie="movie" />
       </li>
     </ul>
-    <button @click="next()">Next</button>
-    <div v-if="page != 1">
-      <button @click="prev()">Prev</button>
-    </div>
   </div>
 </template>
 
@@ -27,9 +21,7 @@ export default {
   },
   data() {
     return {
-      movieName: "",
       movies: [],
-      page: 1,
     };
   },
   methods: {
@@ -49,14 +41,6 @@ export default {
           // Do something if call failed
           console.log(error);
         });
-    },
-    next: function () {
-      this.page = this.page + 1;
-      this.fetchMovies();
-    },
-    prev: function () {
-      this.page = this.page - 1;
-      this.fetchMovies();
     },
   },
   created: function () {
